@@ -3,172 +3,222 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>منشئ نموذج الأسئلة الامتحانية</title>
+  <title>منصة أستاذي - لمنشئ الأسئلة الامتحانية</title>
   <style>
-    body { font-family: 'Toma', 'Arial', sans-serif; background: #f4f4f9; padding: 20px; }
-    .container { max-width: 900px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-    .form-group { margin-bottom: 15px; }
-    label { display: block; font-weight: bold; margin-bottom: 5px; }
-    input, textarea, select { width: 100%; padding: 8px; box-sizing: border-box; }
-    button { background: #28a745; color: white; border: none; padding: 10px 15px; cursor: pointer; border-radius: 4px; margin-top: 5px; }
-    button.delete-btn { background: #dc3545; font-size: 12px; padding: 5px 10px; }
-    button.print-btn { background: #007bff; font-size: 16px; width: 100%; padding: 12px; margin-top: 20px; }
+    :root {
+      --primary-color: #0d6efd;
+      --secondary-color: #198754;
+      --bg-color: #f8f9fa;
+    }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg-color); margin: 0; padding: 0; }
     
-    /* تصميم ورقة الامتحان عند المعاينة والطباعة */
-    .exam-paper { display: none; background: white; padding: 20px; border: 1px solid #000; margin-top: 30px; }
-    .header-table { width: 100%; text-align: center; border-collapse: collapse; margin-bottom: 15px; }
-    .header-table td { padding: 5px; vertical-align: top; }
-    .question-block { margin-bottom: 15px; }
-    .sub-question { margin-right: 20px; margin-top: 5px; }
+    /* هيدر وشعار الموقع */
+    header { background: #1e293b; color: white; padding: 20px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    header h1 { margin: 0; font-size: 28px; color: #38bdf8; }
+    header p { margin: 5px 0 0 0; color: #94a3b8; font-size: 14px; }
 
-    /* إخفاء واجهة الإدخال عند الطباعة */
+    .main-wrapper { max-width: 900px; margin: 30px auto; padding: 0 15px; }
+
+    /* كارت الواجهة الرئيسية */
+    .hero-card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 2px 15px rgba(0,0,0,0.05); text-align: center; margin-bottom: 25px; }
+    .hero-card h2 { color: #1e293b; margin-top: 0; }
+    .hero-card p { color: #64748b; line-height: 1.6; }
+    
+    /* استمارة الإدخال */
+    .form-section { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 2px 15px rgba(0,0,0,0.05); }
+    .section-title { border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; color: #334155; margin-bottom: 20px; font-size: 18px; }
+    
+    .form-group { margin-bottom: 15px; }
+    label { display: block; font-weight: 600; margin-bottom: 6px; color: #475569; }
+    input[type="text"], textarea { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-size: 14px; }
+    input[type="text"]:focus, textarea:focus { border-color: var(--primary-color); outline: none; }
+    
+    /* الأزرار */
+    .btn { padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; transition: 0.2s; }
+    .btn-primary { background: var(--primary-color); color: white; }
+    .btn-primary:hover { background: #0b5ed7; }
+    .btn-success { background: var(--secondary-color); color: white; }
+    .btn-success:hover { background: #157347; }
+    .btn-danger { background: #dc3545; color: white; font-size: 12px; padding: 6px 12px; }
+    .btn-print { background: #0f172a; color: white; width: 100%; padding: 15px; font-size: 16px; margin-top: 20px; }
+    
+    .q-box { background: #f8fafc; border: 1px solid #e2e8f0; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
+
+    /* الورقة للطباعة والمعاينة */
+    .exam-paper { display: none; background: white; padding: 30px; border: 1px solid #000; margin-top: 30px; }
+    .header-table { width: 100%; text-align: center; border-collapse: collapse; margin-bottom: 15px; font-size: 14px; }
+    .header-table td { padding: 4px; vertical-align: top; }
+    .question-block { margin-bottom: 15px; font-size: 15px; }
+    .sub-question { margin-right: 25px; margin-top: 6px; }
+
+    /* خيارات الطباعة */
     @media print {
-      body { background: white; padding: 0; }
-      .input-section, .btn-action { display: none !important; }
+      body { background: white; margin: 0; }
+      header, .hero-card, .form-section, .btn { display: none !important; }
+      .main-wrapper { max-width: 100%; margin: 0; padding: 0; }
       .exam-paper { display: block !important; border: none; padding: 0; }
     }
   </style>
 </head>
 <body>
 
-<div class="container">
-  <div class="input-section">
-    <h2>منشئ نموذج الأسئلة الامتحانية</h2>
+  <!-- رأس الموقع باسم المنصة -->
+  <header>
+    <h1>🎓 منصة أستاذي (Ostadhi)</h1>
+    <p>الأداة الذكية لتصميم وتنظيم نموذج الأسئلة الامتحانية وزارياً وطباعتها بسهولة</p>
+  </header>
+
+  <div class="main-wrapper">
     
-    <!-- بيانات الترويسة -->
-    <div class="form-group">
-      <label>جمهورية / وزارة:</label>
-      <input type="text" id="ministry" value="جمهورية العراق - وزارة التربية">
-    </div>
-    <div class="form-group">
-      <label>المادة الدراسية:</label>
-      <input type="text" id="subject" placeholder="مثال: الرياضيات">
-    </div>
-    <div class="form-group">
-      <label>الصف / المرحلة:</label>
-      <input type="text" id="grade" placeholder="مثال: السادس الابتدائي">
-    </div>
-    <div class="form-group">
-      <label>الدور / السنة:</label>
-      <input type="text" id="term" value="الدور الأول / 2024 - 2025">
-    </div>
-    <div class="form-group">
-      <label>الوقت المحدد:</label>
-      <input type="text" id="examTime" value="ساعتان فقط">
-    </div>
-    <div class="form-group">
-      <label>ملاحظة عامة:</label>
-      <input type="text" id="generalNote" value="ملاحظة: اجب عن خمسة أسئلة فقط ، ولكل سؤال 20 درجة .">
+    <!-- كارت الترحيب والتعريف -->
+    <div class="hero-card">
+      <h2>أهلاً بك عزيزي المدرس 👋</h2>
+      <p>قم بتعبئة معلومات المدرسة والمادة والأسئلة الفرعية أدناه، ثم اضغط على زر "توليد طباعة PDF" للحصول على نماذج اسئلة امتحانية جاهزة للطباعة فوراً.</p>
     </div>
 
-    <hr>
-    <h3>الأسئلة</h3>
-    <div id="questionsContainer"></div>
-    <button type="button" onclick="addQuestion()">+ إضافة سؤال رئيسي</button>
-
-    <button class="btn-action print-btn" onclick="generateAndPrint()">توليد ورقة الأسئلة وتنزيلها (PDF)</button>
-  </div>
-
-  <!-- ورقة الأسئلة الجاهزة للطباعة -->
-  <div id="examPaper" class="exam-paper">
-    <table class="header-table">
-      <tr>
-        <td style="width: 35%; text-align: right;" id="paperMinistry"></td>
-        <td style="width: 30%; text-align: center;">
-          <b id="paperTerm"></b><br>
-          <b>اسم التلميذ: ......................</b><br>
-          <b>الرقم الامتحاني: ......................</b>
-        </td>
-        <td style="width: 35%; text-align: left;">
-          <b>المادة: </b><span id="paperSubject"></span><br>
-          <b>الصف: </b><span id="paperGrade"></span><br>
-          <b>الوقت: </b><span id="paperTime"></span>
-        </td>
-      </tr>
-    </table>
-    <hr>
-    <div style="font-weight: bold; margin-bottom: 15px;" id="paperNote"></div>
-
-    <div id="paperQuestions"></div>
-  </div>
-</div>
-
-<script>
-  let questionCount = 0;
-
-  function addQuestion() {
-    questionCount++;
-    const qDiv = document.createElement('div');
-    qDiv.className = 'form-group';
-    qDiv.id = `q_block_${questionCount}`;
-    qDiv.style.border = "1px solid #ccc";
-    qDiv.style.padding = "10px";
-    qDiv.style.marginTop = "10px";
-
-    qDiv.innerHTML = `
-      <label>سؤال ${questionCount}: (عنوان السؤال أو الملاحظة الخاصة بالسؤال)</label>
-      <input type="text" class="q-title" placeholder="مثال: اجب عن فرعين فقط مما يأتي:">
-      <div class="sub-container" id="sub_container_${questionCount}" style="margin-top:10px;"></div>
-      <button type="button" onclick="addSubQuestion(${questionCount})">+ إضافة فرع (أ، ب، ج...)</button>
-      <button type="button" class="delete-btn" onclick="this.parentElement.remove()">حذف السؤال</button>
-    `;
-    document.getElementById('questionsContainer').appendChild(qDiv);
-  }
-
-  function addSubQuestion(qId) {
-    const subContainer = document.getElementById(`sub_container_${qId}`);
-    const subDiv = document.createElement('div');
-    subDiv.style.display = "flex";
-    subDiv.style.gap = "5px";
-    subDiv.style.marginTop = "5px";
-
-    subDiv.innerHTML = `
-      <input type="text" class="sub-symbol" placeholder="الفرع (أ / ب / ج)" style="width: 15%;">
-      <textarea class="sub-text" placeholder="نص الفرع أو السؤال..." rows="2"></textarea>
-      <button type="button" class="delete-btn" onclick="this.parentElement.remove()">X</button>
-    `;
-    subContainer.appendChild(subDiv);
-  }
-
-  function generateAndPrint() {
-    // تعبئة البيانات
-    document.getElementById('paperMinistry').innerText = document.getElementById('ministry').value;
-    document.getElementById('paperSubject').innerText = document.getElementById('subject').value;
-    document.getElementById('paperGrade').innerText = document.getElementById('grade').value;
-    document.getElementById('paperTerm').innerText = document.getElementById('term').value;
-    document.getElementById('paperTime').innerText = document.getElementById('examTime').value;
-    document.getElementById('paperNote').innerText = document.getElementById('generalNote').value;
-
-    const paperQContainer = document.getElementById('paperQuestions');
-    paperQContainer.innerHTML = '';
-
-    const qBlocks = document.querySelectorAll('#questionsContainer > div');
-    qBlocks.forEach((block, index) => {
-      const qTitle = block.querySelector('.q-title').value;
-      const qPaperDiv = document.createElement('div');
-      qPaperDiv.className = 'question-block';
+    <!-- استمارة إدخال المعلومات -->
+    <div class="form-section">
+      <div class="section-title">📌 أولاً: المعلومات الرئيسية لترويسة الأسئلة</div>
       
-      let html = `<div><b>س ${index + 1} : </b> ${qTitle}</div>`;
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+        <div class="form-group">
+          <label>الجهة / الوزارة:</label>
+          <input type="text" id="ministry" value="جمهورية العراق - وزارة التربية">
+        </div>
+        <div class="form-group">
+          <label>اسم المادة:</label>
+          <input type="text" id="subject" placeholder="مثل: الرياضيات">
+        </div>
+        <div class="form-group">
+          <label>المرحلة / الصف:</label>
+          <input type="text" id="grade" placeholder="مثل: السادس الابتدائي">
+        </div>
+        <div class="form-group">
+          <label>الدور والدرجة:</label>
+          <input type="text" id="term" value="الدور الأول / 2024 - 2025">
+        </div>
+        <div class="form-group">
+          <label>الوقت المحدد:</label>
+          <input type="text" id="examTime" value="ساعتان فقط">
+        </div>
+        <div class="form-group">
+          <label>ملاحظة الترويسة العامة:</label>
+          <input type="text" id="generalNote" value="ملاحظة: أجب عن خمسة أسئلة فقط، ولكل سؤال 20 درجة.">
+        </div>
+      </div>
 
-      const subDivs = block.querySelectorAll('.sub-container > div');
-      subDivs.forEach(sub => {
-        const symbol = sub.querySelector('.sub-symbol').value;
-        const text = sub.querySelector('.sub-text').value;
-        if(symbol || text) {
-          html += `<div class="sub-question"><b>${symbol})</b> ${text}</div>`;
-        }
+      <div class="section-title" style="margin-top: 25px;">📝 ثانياً: إدخال الأسئلة والأسئلة الفرعية</div>
+      
+      <div id="questionsContainer"></div>
+      
+      <button type="button" class="btn btn-success" onclick="addQuestion()">+ إضافة سؤال جديد</button>
+
+      <button type="button" class="btn btn-print" onclick="generateAndPrint()">📄 إنشاء نموذج الأسئلة وحفظه PDF</button>
+    </div>
+
+    <!-- نموذج ورقة الأسئلة المجهز للطباعة والمعاينة -->
+    <div id="examPaper" class="exam-paper">
+      <table class="header-table">
+        <tr>
+          <td style="width: 35%; text-align: right;" id="paperMinistry"></td>
+          <td style="width: 30%; text-align: center;">
+            <b id="paperTerm"></b><br><br>
+            <b>اسم التلميذ/ة: ......................</b><br>
+            <b>الرقم الامتحاني: ......................</b>
+          </td>
+          <td style="width: 35%; text-align: left;">
+            <b>المادة: </b><span id="paperSubject"></span><br>
+            <b>الصف: </b><span id="paperGrade"></span><br>
+            <b>الوقت: </b><span id="paperTime"></span>
+          </td>
+        </tr>
+      </table>
+      <hr style="border: 0.5px solid #000;">
+      <div style="font-weight: bold; margin: 10px 0 20px 0;" id="paperNote"></div>
+
+      <div id="paperQuestions"></div>
+    </div>
+
+  </div>
+
+  <script>
+    let questionCount = 0;
+
+    function addQuestion() {
+      questionCount++;
+      const qDiv = document.createElement('div');
+      qDiv.className = 'q-box';
+      qDiv.id = `q_block_${questionCount}`;
+
+      qDiv.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+          <label style="margin:0;">السؤال ${questionCount}:</label>
+          <button type="button" class="btn btn-danger" onclick="this.parentElement.parentElement.remove()">حذف السؤال</button>
+        </div>
+        <input type="text" class="q-title" placeholder="أدخل نص السؤال أو صيغته الرئيسية (مثال: أجب عن فرعين فقط مما يأتي)">
+        
+        <div class="sub-container" id="sub_container_${questionCount}" style="margin-top:10px;"></div>
+        
+        <button type="button" class="btn btn-primary" style="font-size:12px; margin-top:10px;" onclick="addSubQuestion(${questionCount})">+ إضافة فرع (أ، ب، ج...)</button>
+      `;
+      document.getElementById('questionsContainer').appendChild(qDiv);
+    }
+
+    function addSubQuestion(qId) {
+      const subContainer = document.getElementById(`sub_container_${qId}`);
+      const subDiv = document.createElement('div');
+      subDiv.style.display = "flex";
+      subDiv.style.gap = "8px";
+      subDiv.style.marginTop = "8px";
+
+      subDiv.innerHTML = `
+        <input type="text" class="sub-symbol" placeholder="رمز الفرع (أ / ب)" style="width: 20%;">
+        <textarea class="sub-text" placeholder="محتوى الفرع..." rows="1"></textarea>
+        <button type="button" class="btn btn-danger" onclick="this.parentElement.remove()">X</button>
+      `;
+      subContainer.appendChild(subDiv);
+    }
+
+    function generateAndPrint() {
+      document.getElementById('paperMinistry').innerText = document.getElementById('ministry').value;
+      document.getElementById('paperSubject').innerText = document.getElementById('subject').value;
+      document.getElementById('paperGrade').innerText = document.getElementById('grade').value;
+      document.getElementById('paperTerm').innerText = document.getElementById('term').value;
+      document.getElementById('paperTime').innerText = document.getElementById('examTime').value;
+      document.getElementById('paperNote').innerText = document.getElementById('generalNote').value;
+
+      const paperQContainer = document.getElementById('paperQuestions');
+      paperQContainer.innerHTML = '';
+
+      const qBlocks = document.querySelectorAll('#questionsContainer > .q-box');
+      qBlocks.forEach((block, index) => {
+        const qTitle = block.querySelector('.q-title').value;
+        const qPaperDiv = document.createElement('div');
+        qPaperDiv.className = 'question-block';
+        
+        let html = `<div><b>س ${index + 1}: </b> ${qTitle}</div>`;
+
+        const subDivs = block.querySelectorAll('.sub-container > div');
+        subDivs.forEach(sub => {
+          const symbol = sub.querySelector('.sub-symbol').value;
+          const text = sub.querySelector('.sub-text').value;
+          if(symbol || text) {
+            html += `<div class="sub-question"><b>${symbol})</b> ${text}</div>`;
+          }
+        });
+
+        qPaperDiv.innerHTML = html;
+        paperQContainer.appendChild(qPaperDiv);
       });
 
-      qPaperDiv.innerHTML = html;
-      paperQContainer.appendChild(qPaperDiv);
-    });
+      document.getElementById('examPaper').style.display = 'block';
+      window.print();
+    }
 
-    document.getElementById('examPaper').style.display = 'block';
-    
-    // فتح نافذة الطباعة (ومنها يمكن للمدرس حفظ الملف كـ PDF)
-    window.print();
-  }
-</script>
-
+    // إدخال سؤال تلقائي عند فتح الصفحة لأول مرة
+    window.onload = function() {
+      addQuestion();
+    }
+  </script>
 </body>
 </html>
