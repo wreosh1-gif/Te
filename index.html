@@ -3,58 +3,56 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>منصة أستاذي - المنشئ التفاعلي لأسئلة الامتحانات</title>
+  <title>منصة أستاذي - صانع نماذج الأسئلة الامتحانية</title>
   <style>
     :root {
-      --primary: #0f172a;
+      --primary: #1e293b;
       --accent: #0284c7;
       --bg: #f8fafc;
     }
     body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); margin: 0; padding: 0; color: #334155; }
     
-    header { background: var(--primary); color: white; padding: 20px; text-align: center; border-bottom: 4px solid var(--accent); }
+    header { background: var(--primary); color: white; padding: 25px 20px; text-align: center; border-bottom: 4px solid var(--accent); }
     header h1 { margin: 0; font-size: 26px; color: #38bdf8; }
-    header p { margin: 5px 0 0 0; color: #94a3b8; font-size: 14px; }
+    header p { margin: 6px 0 0 0; color: #94a3b8; font-size: 14px; }
 
-    .container { max-width: 1000px; margin: 25px auto; padding: 0 15px; }
-    .card { background: white; border-radius: 10px; padding: 22px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.08); margin-bottom: 20px; }
+    .container { max-width: 950px; margin: 30px auto; padding: 0 15px; }
+    .card { background: white; border-radius: 10px; padding: 25px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); margin-bottom: 25px; }
 
-    .section-title { border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; color: var(--primary); margin-bottom: 16px; font-weight: bold; font-size: 16px; }
+    .section-title { border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; color: var(--primary); margin-bottom: 18px; font-weight: bold; font-size: 17px; }
     
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; }
     
-    .form-group { margin-bottom: 10px; }
-    label { display: block; font-weight: 600; margin-bottom: 4px; font-size: 13px; color: #475569; }
-    input, select, textarea { width: 100%; padding: 8px 10px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-size: 14px; }
+    .form-group { margin-bottom: 12px; }
+    label { display: block; font-weight: 600; margin-bottom: 5px; font-size: 13px; color: #475569; }
+    input, select, textarea { width: 100%; padding: 9px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-size: 14px; }
     input:focus, select:focus, textarea:focus { border-color: var(--accent); outline: none; }
 
     /* الأزرار */
-    .btn { padding: 9px 15px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; transition: 0.2s; font-size: 13px; }
+    .btn { padding: 10px 18px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; transition: 0.2s; font-size: 14px; }
     .btn-add { background: #10b981; color: white; }
     .btn-add:hover { background: #059669; }
-    .btn-separator { background: #64748b; color: white; }
-    .btn-danger { background: #ef4444; color: white; font-size: 11px; padding: 4px 8px; }
-    .btn-generate { background: var(--primary); color: white; width: 100%; padding: 14px; font-size: 16px; margin-top: 10px; }
-    .btn-generate:hover { background: #0284c7; }
+    .btn-danger { background: #ef4444; color: white; font-size: 12px; padding: 5px 10px; }
+    .btn-generate { background: var(--primary); color: white; width: 100%; padding: 15px; font-size: 17px; margin-top: 15px; }
+    .btn-generate:hover { background: #0f172a; }
 
-    .q-box { background: #f1f5f9; border: 1px solid #cbd5e1; padding: 12px; border-radius: 8px; margin-bottom: 12px; }
-    .sep-box { background: #e2e8f0; border: 1px dashed #94a3b8; padding: 8px; text-align: center; border-radius: 6px; margin-bottom: 12px; font-weight: bold; font-size: 13px; }
+    .q-box { background: #f1f5f9; border: 1px solid #e2e8f0; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
 
-    /* ورقة المعاينة والطباعة الرسمية */
+    /* تنسيق ورقة الطباعة والمعاينة الرسمية */
     .exam-paper { display: none; background: white; padding: 30px; border: 1px solid #000; margin-top: 20px; font-family: 'Times New Roman', Times, serif; }
-    .header-table { width: 100%; text-align: center; border-collapse: collapse; margin-bottom: 10px; font-size: 15px; }
-    .header-table td { padding: 2px 4px; vertical-align: top; }
+    .header-table { width: 100%; border-collapse: collapse; margin-bottom: 10px; font-size: 15px; }
+    .header-table td { padding: 3px; vertical-align: top; }
     
     .question-block { margin-bottom: 12px; font-size: 16px; line-height: 1.5; }
-    .sub-question { margin-right: 25px; margin-top: 4px; }
-    
-    .footer-paper { margin-top: 25px; border-top: 1px solid #000; padding-top: 12px; text-align: center; font-size: 15px; }
+    .sub-question { margin-top: 4px; }
 
-    /* الوضع اللاتيني (للغة الإنجليزية) */
-    .ltr-paper { direction: ltr; text-align: left; }
-    .ltr-paper .sub-question { margin-right: 0; margin-left: 25px; }
+    /* خيارات اللغة الإنجليزية */
+    .ltr-mode { direction: ltr; text-align: left; }
+    .ltr-mode .sub-question { margin-left: 25px; margin-right: 0; }
+    .rtl-mode .sub-question { margin-right: 25px; margin-left: 0; }
 
+    /* إعدادات الطباعة وتحويل PDF */
     @media print {
       body { background: white; margin: 0; }
       header, .card, .btn { display: none !important; }
@@ -67,190 +65,115 @@
 
   <header>
     <h1>🎓 منصة أستاذي (Ostadhi)</h1>
-    <p>صانع ونماذج أسئلة الامتحانات الذكية لكافة المواد والمراحل</p>
+    <p>صانع نماذج الأسئلة الامتحانية القابلة للتعديل الكامل</p>
   </header>
 
   <div class="container">
 
-    <!-- قوالب جاهزة بناء على المادة -->
-    <div class="card" style="border-right: 5px solid var(--accent);">
-      <div class="section-title">⚡ اختيار نموذج سريع بحسب المادة (Templates)</div>
-      <div class="grid-3">
-        <button class="btn btn-add" style="background:#0284c7;" onclick="applyTemplate('arabic')">📚 نموذج اللغة العربية</button>
-        <button class="btn btn-add" style="background:#0d9488;" onclick="applyTemplate('english')">🔤 نموذج اللغة الإنجليزية</button>
-        <button class="btn btn-add" style="background:#6366f1;" onclick="applyTemplate('math')">📐 نموذج الرياضيات / العلوم</button>
-      </div>
-    </div>
-
-    <!-- إعدادات هيدر الصفحة -->
+    <!-- قسم الإعدادات العامة ولغة الأسئلة -->
     <div class="card">
-      <div class="section-title">⚙️ أولاً: شكل وتصميم هيدر ورقة الأسئلة</div>
-      <div class="grid-2">
-        <div class="form-group">
-          <label>نمط الأسئلة:</label>
-          <select id="headerStyle" onchange="toggleHeaderInputs()">
-            <option value="school">نموذج المدرسة / الكورس الشهري</option>
-            <option value="ministerial">النموذج الوزاري الرسمى</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>لغة الورقة والاتجاه:</label>
-          <select id="paperDirection">
-            <option value="rtl">من اليمين لليسار (عربي / علوم / إسلامية)</option>
-            <option value="ltr">من اليسار لليمين (English / Math)</option>
-          </select>
-        </div>
+      <div class="section-title">⚙️ أولاً: الترويسة وإعدادات لغة الأسئلة</div>
+      
+      <div class="form-group" style="margin-bottom: 15px;">
+        <label>لغة ورقة الأسئلة والاتجاه:</label>
+        <select id="paperLang" onchange="toggleLanguageMode()">
+          <option value="ar">اللغة العربية (من اليمين إلى اليسار)</option>
+          <option value="en">English (من اليسار إلى اليمين LTR)</option>
+        </select>
       </div>
 
-      <!-- إدخال ترويسة المدرسة -->
-      <div id="schoolHeaderInputs" class="grid-3">
+      <div class="grid-3">
         <div class="form-group">
-          <label>اسم المدرسة / الإدارة:</label>
-          <input type="text" id="schoolName" value="إدارة متوسطة الأجيال">
+          <label id="lblSchool">اسم المدرسة / الإدارة:</label>
+          <input type="text" id="schoolName" value="متوسطة أجيال الغد للبنين">
         </div>
         <div class="form-group">
-          <label>اسم المادة:</label>
-          <input type="text" id="subject" placeholder="مثال: اللغة العربية">
+          <label id="lblSubject">اسم المادة:</label>
+          <input type="text" id="subject" placeholder="مثال: اللغة العربية / English">
         </div>
         <div class="form-group">
-          <label>الصف / المرحلة:</label>
+          <label id="lblGrade">الصف / المرحلة:</label>
           <input type="text" id="grade" placeholder="مثال: الثاني المتوسط">
         </div>
         <div class="form-group">
-          <label>عنوان الامتحان:</label>
-          <input type="text" id="examTitle" value="اسئلة امتحان نهاية الكورس / الدور الأول">
+          <label id="lblExamTitle">عنوان الامتحان / الكورس:</label>
+          <input type="text" id="examTitle" value="اسئلة امتحان الكورس الثاني / الدور الأول">
         </div>
         <div class="form-group">
-          <label>العام الدراسي:</label>
+          <label id="lblYear">العام الدراسي:</label>
           <input type="text" id="year" value="2025 - 2026 م">
         </div>
         <div class="form-group">
-          <label>الوقت / الزمن:</label>
+          <label id="lblExamTime">الوقت / الزمن:</label>
           <input type="text" id="examTime" value="ساعتان">
         </div>
       </div>
 
-      <!-- إدخال الترويسة الوزارية -->
-      <div id="ministerialHeaderInputs" class="grid-3" style="display: none;">
-        <div class="form-group">
-          <label>الجهة العليا:</label>
-          <input type="text" id="minGov" value="جمهورية العراق - وزارة التربية">
-        </div>
-        <div class="form-group">
-          <label>اللجنة الامتحانية:</label>
-          <input type="text" id="minComm" value="اللجنة الدائمة للامتحانات العامة">
-        </div>
-        <div class="form-group">
-          <label>الدور / السنة:</label>
-          <input type="text" id="minTerm" value="الدور الأول - 2026 م">
-        </div>
-        <div class="form-group">
-          <label>اسم المادة:</label>
-          <input type="text" id="minSubject" placeholder="مثل: اللغة العربية">
-        </div>
-        <div class="form-group">
-          <label>المرحلة والفرع:</label>
-          <input type="text" id="minGrade" placeholder="مثل: الثالث المتوسط">
-        </div>
-        <div class="form-group">
-          <label>الوقت المحدد:</label>
-          <input type="text" id="minTime" value="ثلاث ساعات">
-        </div>
-      </div>
-
-      <div class="form-group" style="margin-top: 8px;">
-        <label>ملاحظة الترويسة العامة (تظهر أسفل الجدول مباشرة):</label>
+      <div class="form-group" style="margin-top: 10px;">
+        <label id="lblGeneralNote">ملاحظة الترويسة العامة (تظهر أسفل الجدول):</label>
         <input type="text" id="generalNote" value="ملاحظة: الإجابة عن جميع الأسئلة (لكل سؤال 20 درجة)">
       </div>
     </div>
 
-    <!-- كتابة وتنسيق الأسئلة -->
+    <!-- إدخال الأسئلة -->
     <div class="card">
-      <div class="section-title">📝 ثانياً: بناء الأسئلة وإضافة الفواصل والخطوط</div>
+      <div class="section-title">📝 ثانياً: تفاصيل الأسئلة والفرعيات</div>
       <div id="questionsContainer"></div>
-      
-      <div style="display:flex; gap:10px;">
-        <button type="button" class="btn btn-add" onclick="addQuestion()">+ إضافة سؤال جديد</button>
-        <button type="button" class="btn btn-separator" onclick="addSeparator()">➕ إضافة خط فاصل بين الأسئلة</button>
-      </div>
+      <button type="button" class="btn btn-add" onclick="addQuestion()">+ إضافة سؤال جديد</button>
     </div>
 
-    <!-- التذييل والتوقيع -->
+    <!-- إدخال الأسفل والتذييل -->
     <div class="card">
-      <div class="section-title">✍️ ثالثاً: أسفل الورقة (التمنيات والتوقيع)</div>
+      <div class="section-title">✍️ ثالثاً: التذييل السفلي (تمنيات التوفيق والتوقيع)</div>
       <div class="grid-3">
         <div class="form-group">
-          <label>عبارة التمني / التشجيع:</label>
+          <label id="lblWishText">عبارة التمني / الملاحظة الختامية:</label>
           <input type="text" id="wishText" value="تمنياتنا لكم بالنجاح والتوفيق">
         </div>
         <div class="form-group">
-          <label>مدرس / أستاذ المادة:</label>
+          <label id="lblTeacherName">أستاذ / أستاذة المادة:</label>
           <input type="text" id="teacherName" placeholder="مثال: أ. أحمد فاضل">
         </div>
         <div class="form-group">
-          <label>تنبيه أسفل الصفحة:</label>
-          <select id="bottomNotice">
-            <option value="انتهت الأسئلة">انتهت الأسئلة</option>
-            <option value="- اقلب الورقة -">- اقلب الورقة -</option>
-            <option value="">بدون تنبيه</option>
-          </select>
+          <label id="lblBottomNotice">تنبيه نهاية الصفحة:</label>
+          <input type="text" id="bottomNotice" value="انتهت الأسئلة">
         </div>
       </div>
 
-      <button type="button" class="btn btn-generate" onclick="generateAndPrint()">📄 معايرة وتحميل نموذج الأسئلة (PDF / طباعة)</button>
+      <button type="button" class="btn btn-generate" onclick="generateAndPrint()">📄 معاينة وتحميل ورقة الأسئلة (PDF / طباعة)</button>
     </div>
 
-    <!-- نموذج ورقة الطباعة -->
-    <div id="examPaper" class="exam-paper">
+    <!-- ورقة المعاينة والطباعة -->
+    <div id="examPaper" class="exam-paper rtl-mode">
       
-      <!-- هيدر المدرسة -->
-      <table id="paperSchoolHeader" class="header-table">
+      <!-- هيدر الأسئلة -->
+      <table class="header-table">
         <tr>
-          <td style="width: 30%; text-align: inherit;" id="schoolCol1">
+          <td id="hdrLeft" style="width: 35%; text-align: right;">
             <b>إدارة: </b><span id="pSchool"></span><br>
             <b>المادة: </b><span id="pSubject"></span>
           </td>
-          <td style="width: 40%; text-align: center;">
+          <td style="width: 30%; text-align: center;">
             <b id="pExamTitle" style="font-size: 16px;"></b><br>
             <b>للعام الدراسي: </b><span id="pYear"></span>
           </td>
-          <td style="width: 30%; text-align: inherit;" id="schoolCol3">
+          <td id="hdrRight" style="width: 35%; text-align: left;">
             <b>الصف: </b><span id="pGrade"></span><br>
             <b>الوقت: </b><span id="pTime"></span>
           </td>
         </tr>
       </table>
 
-      <!-- هيدر الوزاري -->
-      <table id="paperMinisterialHeader" class="header-table" style="display: none;">
-        <tr>
-          <td style="width: 35%; text-align: inherit;" id="minCol1">
-            <b id="pMinGov"></b><br>
-            <span id="pMinComm"></span><br>
-            <b>المادة: </b><span id="pMinSubject"></span>
-          </td>
-          <td style="width: 30%; text-align: center;">
-            <b id="pMinTerm"></b><br><br>
-            <b>اسم الطالب: .......................</b><br>
-            <b>الرقم الامتحاني: .......................</b>
-          </td>
-          <td style="width: 35%; text-align: inherit;" id="minCol3">
-            <b>الدراسة: </b><span id="pMinGrade"></span><br>
-            <b>الوقت: </b><span id="pMinTime"></span>
-          </td>
-        </tr>
-      </table>
-
       <hr style="border: 0.5px solid #000; margin: 8px 0;">
-      <div style="font-weight: bold; margin-bottom: 12px; text-align: center; font-size: 15px;" id="pGeneralNote"></div>
+      <div style="font-weight: bold; margin-bottom: 15px; text-align: center; font-size: 15px;" id="pGeneralNote"></div>
 
-      <!-- محتوى الأسئلة -->
+      <!-- الأسئلة -->
       <div id="paperQuestions"></div>
 
       <!-- التذييل السفلي -->
       <div class="footer-paper">
-        <div style="font-weight: bold; font-size: 15px; margin-bottom: 10px;" id="pWishText"></div>
-        <div style="display: flex; justify-content: space-between; align-items: center; padding: 0 15px;">
+        <div style="font-weight: bold; font-size: 16px; margin-bottom: 12px;" id="pWishText"></div>
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 0 20px;">
           <div style="font-weight: bold;" id="pTeacherName"></div>
           <div style="font-weight: bold;" id="pBottomNotice"></div>
         </div>
@@ -261,207 +184,135 @@
   </div>
 
   <script>
-    let itemIndex = 0;
+    let questionCount = 0;
 
-    function toggleHeaderInputs() {
-      const style = document.getElementById('headerStyle').value;
-      if (style === 'school') {
-        document.getElementById('schoolHeaderInputs').style.display = 'grid';
-        document.getElementById('ministerialHeaderInputs').style.display = 'none';
+    function toggleLanguageMode() {
+      const lang = document.getElementById('paperLang').value;
+      if (lang === 'en') {
+        document.getElementById('examTitle').value = "Final Examination / First Term";
+        document.getElementById('examTime').value = "2 Hours";
+        document.getElementById('generalNote').value = "Note: Answer all questions.";
+        document.getElementById('wishText').value = "Good Luck For All";
+        document.getElementById('bottomNotice').value = "End of Questions";
       } else {
-        document.getElementById('schoolHeaderInputs').style.display = 'none';
-        document.getElementById('ministerialHeaderInputs').style.display = 'grid';
+        document.getElementById('examTitle').value = "اسئلة امتحان الكورس الثاني / الدور الأول";
+        document.getElementById('examTime').value = "ساعتان";
+        document.getElementById('generalNote').value = "ملاحظة: الإجابة عن جميع الأسئلة (لكل سؤال 20 درجة)";
+        document.getElementById('wishText').value = "تمنياتنا لكم بالنجاح والتوفيق";
+        document.getElementById('bottomNotice').value = "انتهت الأسئلة";
       }
     }
 
-    function addQuestion(qTitleVal = '', qMarkVal = '') {
-      itemIndex++;
+    function addQuestion() {
+      questionCount++;
+      const lang = document.getElementById('paperLang').value;
       const qDiv = document.createElement('div');
-      qDiv.className = 'q-box item-node';
-      qDiv.dataset.type = 'question';
+      qDiv.className = 'q-box';
+      qDiv.id = `q_block_${questionCount}`;
+
+      const qLabelText = lang === 'en' ? `Question ${questionCount}:` : `السؤال ${questionCount}:`;
+      const titlePlaceholder = lang === 'en' ? 'Question title (e.g., Reading Comprehension / Grammar)' : 'عنوان السؤال (مثال: القواعد / اجب عن جميع الأسئلة)';
+      const markPlaceholder = lang === 'en' ? 'Marks (e.g., 20 Marks)' : 'الدرجة (مثال: 20 درجة)';
 
       qDiv.innerHTML = `
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-          <label style="margin:0; font-size:14px; color:var(--primary);">سؤال رئيسي:</label>
+          <label style="margin:0; font-size:15px; color:var(--primary);">${qLabelText}</label>
           <button type="button" class="btn btn-danger" onclick="this.parentElement.parentElement.remove()">حذف السؤال</button>
         </div>
         <div class="grid-2" style="margin-bottom:8px;">
-          <input type="text" class="q-title" value="${qTitleVal}" placeholder="عنوان السؤال (مثال: القواعد / أجب عن فرعين)">
-          <input type="text" class="q-mark" value="${qMarkVal}" placeholder="الدرجة (مثال: 20 درجة)">
+          <input type="text" class="q-title" placeholder="${titlePlaceholder}">
+          <input type="text" class="q-mark" placeholder="${markPlaceholder}" style="width:40%;">
         </div>
         
-        <div class="sub-container"></div>
+        <div class="sub-container" id="sub_container_${questionCount}"></div>
         
-        <button type="button" class="btn btn-add" style="font-size:11px; margin-top:6px; background:#0284c7;" onclick="addSubQuestion(this)">+ إضافة فرع (أ، ب، ج...)</button>
+        <button type="button" class="btn btn-add" style="font-size:12px; margin-top:8px; background:#0284c7;" onclick="addSubQuestion(${questionCount})">+ إضافة فرع / نقطة فرعية</button>
       `;
       document.getElementById('questionsContainer').appendChild(qDiv);
-      return qDiv;
     }
 
-    function addSubQuestion(btn, symbolVal = '', textVal = '', markVal = '') {
-      const subContainer = btn.parentElement.querySelector('.sub-container');
+    function addSubQuestion(qId) {
+      const lang = document.getElementById('paperLang').value;
+      const subContainer = document.getElementById(`sub_container_${qId}`);
       const subDiv = document.createElement('div');
       subDiv.style.display = "flex";
-      subDiv.style.gap = "6px";
+      subDiv.style.gap = "8px";
       subDiv.style.marginTop = "6px";
 
+      const symbolPlaceholder = lang === 'en' ? 'Symbol (e.g., Q1 / A)' : 'الفرع (مثال: أ / ب)';
+      const textPlaceholder = lang === 'en' ? 'Sub-question text...' : 'نص السؤال الفرعي أو التمرين...';
+
       subDiv.innerHTML = `
-        <input type="text" class="sub-symbol" value="${symbolVal}" placeholder="رمز الفرع (أ / ب)" style="width: 20%;">
-        <textarea class="sub-text" placeholder="نص الفرع..." rows="1">${textVal}</textarea>
-        <input type="text" class="sub-mark" value="${markVal}" placeholder="الدرجة" style="width: 20%;">
+        <input type="text" class="sub-symbol" placeholder="${symbolPlaceholder}" style="width: 20%;">
+        <textarea class="sub-text" placeholder="${textPlaceholder}" rows="1"></textarea>
+        <input type="text" class="sub-mark" placeholder="الدرجة" style="width: 20%;">
         <button type="button" class="btn btn-danger" onclick="this.parentElement.remove()">X</button>
       `;
       subContainer.appendChild(subDiv);
     }
 
-    function addSeparator() {
-      const sepDiv = document.createElement('div');
-      sepDiv.className = 'sep-box item-node';
-      sepDiv.dataset.type = 'separator';
-
-      sepDiv.innerHTML = `
-        --------------------- ( خط فاصل أفقي بين الأقسام ) ---------------------
-        <button type="button" class="btn btn-danger" style="float:left;" onclick="this.parentElement.remove()">حذف الفاصل</button>
-      `;
-      document.getElementById('questionsContainer').appendChild(sepDiv);
-    }
-
-    // القوالب الجاهزة للمواد
-    function applyTemplate(type) {
-      document.getElementById('questionsContainer').innerHTML = '';
-      
-      if (type === 'arabic') {
-        document.getElementById('paperDirection').value = 'rtl';
-        document.getElementById('subject').value = 'اللغة العربية';
-        document.getElementById('generalNote').value = 'ملاحظة: الإجابة عن جميع الأسئلة، مع مراعاة الترك الضمني.';
-        
-        let q1 = addQuestion('القواعد: أجب عن فرعين مما يأتي:', '20 درجة');
-        addSubQuestion(q1.querySelector('.btn'), 'أ)', 'استخرج الفاعل والمفعول به من الجملة التالية...', '10 درجات');
-        addSubQuestion(q1.querySelector('.btn'), 'ب)', 'بيّن نوع المنادى واعرابه في النصوص الآتية...', '10 درجات');
-        
-        addSeparator();
-
-        let q2 = addQuestion('الأدب والنصوص:', '10 درجات');
-        addSubQuestion(q2.querySelector('.btn'), 'س', 'اكتب ثلاثة أبيات من قصيدة الشاعر...', '10 درجات');
-      } 
-      else if (type === 'english') {
-        document.getElementById('paperDirection').value = 'ltr';
-        document.getElementById('subject').value = 'English Language';
-        document.getElementById('generalNote').value = 'Note: Answer all the questions.';
-        document.getElementById('wishText').value = 'Good Luck for All';
-        
-        let q1 = addQuestion('Q1) Reading Comprehension: Read the passage carefully.', '10 Marks');
-        addSubQuestion(q1.querySelector('.btn'), '1.', 'Where did Jack work?', '2M');
-        addSubQuestion(q1.querySelector('.btn'), '2.', 'Jack went to Manchester by (car / train).', '2M');
-        
-        addSeparator();
-
-        let q2 = addQuestion('Q2) Grammar and Function: Do as required.', '10 Marks');
-        addSubQuestion(q2.querySelector('.btn'), '1.', 'She (study) English every day. (Correct the verb)', '2M');
-      }
-      else if (type === 'math') {
-        document.getElementById('paperDirection').value = 'rtl';
-        document.getElementById('subject').value = 'الرياضيات';
-        document.getElementById('generalNote').value = 'ملاحظة: اجب عن خمسة أسئلة فقط ، ولكل سؤال 20 درجة.';
-        
-        let q1 = addQuestion('أجب عن فرعين فقط مما يأتي:', '20 درجة');
-        addSubQuestion(q1.querySelector('.btn'), 'أ)', 'جد قيمة المتغير x في المعادلة الاتية: 2x + 5 = 15', '10 درجات');
-        addSubQuestion(q1.querySelector('.btn'), 'ب)', 'ارسم المستوى الإحداثي ومثّل النقطتين A(2,3) و B(-1,4)', '10 درجات');
-      }
-    }
-
     function generateAndPrint() {
-      const style = document.getElementById('headerStyle').value;
-      const dir = document.getElementById('paperDirection').value;
+      const lang = document.getElementById('paperLang').value;
       const paper = document.getElementById('examPaper');
 
-      if (dir === 'ltr') {
-        paper.classList.add('ltr-paper');
-        document.getElementById('schoolCol1').style.textAlign = 'left';
-        document.getElementById('schoolCol3').style.textAlign = 'right';
-        document.getElementById('minCol1').style.textAlign = 'left';
-        document.getElementById('minCol3').style.textAlign = 'right';
+      if (lang === 'en') {
+        paper.className = 'exam-paper ltr-mode';
+        document.getElementById('hdrLeft').style.textAlign = 'left';
+        document.getElementById('hdrRight').style.textAlign = 'right';
       } else {
-        paper.classList.remove('ltr-paper');
-        document.getElementById('schoolCol1').style.textAlign = 'right';
-        document.getElementById('schoolCol3').style.textAlign = 'left';
-        document.getElementById('minCol1').style.textAlign = 'right';
-        document.getElementById('minCol3').style.textAlign = 'left';
+        paper.className = 'exam-paper rtl-mode';
+        document.getElementById('hdrLeft').style.textAlign = 'right';
+        document.getElementById('hdrRight').style.textAlign = 'left';
       }
 
-      if (style === 'school') {
-        document.getElementById('paperSchoolHeader').style.display = 'table';
-        document.getElementById('paperMinisterialHeader').style.display = 'none';
-
-        document.getElementById('pSchool').innerText = document.getElementById('schoolName').value;
-        document.getElementById('pSubject').innerText = document.getElementById('subject').value;
-        document.getElementById('pGrade').innerText = document.getElementById('grade').value;
-        document.getElementById('pExamTitle').innerText = document.getElementById('examTitle').value;
-        document.getElementById('pYear').innerText = document.getElementById('year').value;
-        document.getElementById('pTime').innerText = document.getElementById('examTime').value;
-      } else {
-        document.getElementById('paperSchoolHeader').style.display = 'none';
-        document.getElementById('paperMinisterialHeader').style.display = 'table';
-
-        document.getElementById('pMinGov').innerText = document.getElementById('minGov').value;
-        document.getElementById('pMinComm').innerText = document.getElementById('minComm').value;
-        document.getElementById('pMinSubject').innerText = document.getElementById('minSubject').value;
-        document.getElementById('pMinTerm').innerText = document.getElementById('minTerm').value;
-        document.getElementById('pMinGrade').innerText = document.getElementById('minGrade').value;
-        document.getElementById('pMinTime').innerText = document.getElementById('minTime').value;
-      }
-
+      // تعبئة الترويسة
+      document.getElementById('pSchool').innerText = document.getElementById('schoolName').value;
+      document.getElementById('pSubject').innerText = document.getElementById('subject').value;
+      document.getElementById('pGrade').innerText = document.getElementById('grade').value;
+      document.getElementById('pExamTitle').innerText = document.getElementById('examTitle').value;
+      document.getElementById('pYear').innerText = document.getElementById('year').value;
+      document.getElementById('pTime').innerText = document.getElementById('examTime').value;
       document.getElementById('pGeneralNote').innerText = document.getElementById('generalNote').value;
 
-      // طباعة الأسئلة والفواصل
+      // طباعة الأسئلة
       const paperQContainer = document.getElementById('paperQuestions');
       paperQContainer.innerHTML = '';
 
-      const items = document.querySelectorAll('#questionsContainer > .item-node');
-      let qNum = 1;
+      const qBlocks = document.querySelectorAll('#questionsContainer > .q-box');
+      qBlocks.forEach((block, index) => {
+        const qTitle = block.querySelector('.q-title').value;
+        const qMark = block.querySelector('.q-mark').value;
+        const qPaperDiv = document.createElement('div');
+        qPaperDiv.className = 'question-block';
+        
+        const floatSide = lang === 'en' ? 'right' : 'left';
+        const qPrefix = lang === 'en' ? `<b>Q${index + 1}/ </b>` : `<b>س ${index + 1} / </b>`;
+        
+        let markText = qMark ? `<span style="float:${floatSide}; font-weight:bold;">[ ${qMark} ]</span>` : '';
+        let html = `<div>${qPrefix} ${qTitle} ${markText}</div>`;
 
-      items.forEach((item) => {
-        if (item.dataset.type === 'separator') {
-          const hr = document.createElement('hr');
-          hr.style.border = '0.5px dashed #000';
-          hr.style.margin = '15px 0';
-          paperQContainer.appendChild(hr);
-        } else {
-          const qTitle = item.querySelector('.q-title').value;
-          const qMark = item.querySelector('.q-mark').value;
-          const qPaperDiv = document.createElement('div');
-          qPaperDiv.className = 'question-block';
-          
-          let markFloat = dir === 'ltr' ? 'right' : 'left';
-          let markText = qMark ? `<span style="float:${markFloat}; font-weight:bold;">[ ${qMark} ]</span>` : '';
-          let qPrefix = dir === 'ltr' ? `<b>Q${qNum}) </b>` : `<b>س ${qNum} / </b>`;
-          
-          let html = `<div>${qPrefix} ${qTitle} ${markText}</div>`;
+        const subDivs = block.querySelectorAll('.sub-container > div');
+        subDivs.forEach(sub => {
+          const symbol = sub.querySelector('.sub-symbol').value;
+          const text = sub.querySelector('.sub-text').value;
+          const mark = sub.querySelector('.sub-mark').value;
+          let subMarkText = mark ? `<span style="float:${floatSide};">(${mark})</span>` : '';
 
-          const subDivs = item.querySelectorAll('.sub-container > div');
-          subDivs.forEach(sub => {
-            const symbol = sub.querySelector('.sub-symbol').value;
-            const text = sub.querySelector('.sub-text').value;
-            const mark = sub.querySelector('.sub-mark').value;
-            let subMarkText = mark ? `<span style="float:${markFloat};">(${mark})</span>` : '';
+          if(symbol || text) {
+            html += `<div class="sub-question"><b>${symbol}</b> ${text} ${subMarkText}</div>`;
+          }
+        });
 
-            if(symbol || text) {
-              html += `<div class="sub-question"><b>${symbol}</b> ${text} ${subMarkText}</div>`;
-            }
-          });
-
-          qPaperDiv.innerHTML = html;
-          paperQContainer.appendChild(qPaperDiv);
-          qNum++;
-        }
+        qPaperDiv.innerHTML = html;
+        paperQContainer.appendChild(qPaperDiv);
       });
 
       // التذييل السفلي
       document.getElementById('pWishText').innerText = document.getElementById('wishText').value;
       
       const teacher = document.getElementById('teacherName').value;
-      let teacherPrefix = dir === 'ltr' ? 'Teacher: ' : 'مدرس المادة: ';
-      document.getElementById('pTeacherName').innerText = teacher ? `${teacherPrefix} ${teacher}` : '';
+      const teacherLabel = lang === 'en' ? 'Teacher: ' : 'مدرس المادة: ';
+      document.getElementById('pTeacherName').innerText = teacher ? `${teacherLabel}${teacher}` : '';
       document.getElementById('pBottomNotice').innerText = document.getElementById('bottomNotice').value;
 
       document.getElementById('examPaper').style.display = 'block';
@@ -469,7 +320,7 @@
     }
 
     window.onload = function() {
-      applyTemplate('arabic');
+      addQuestion();
     }
   </script>
 </body>
